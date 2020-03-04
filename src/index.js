@@ -1,3 +1,6 @@
+import {Person} from "./js/person";
+import {Teacher} from "./js/teacher";
+
 function sayHello() {
     for (let i = 0; i < 5; i++) {
         console.log(i)
@@ -19,7 +22,7 @@ function sayHello() {
 
 sayHello();
 
-const person = {
+const personObject = {
     name: 'Maziar',
     /*
     * Every function is javascript is an object
@@ -35,30 +38,30 @@ const person = {
     }
 };
 
-person.walk();
-person.talk();
+personObject.walk();
+personObject.talk();
 
 const targetMember = "name";
-person[targetMember] = "Jimmy";
-person.walk();
+personObject[targetMember] = "Jimmy";
+personObject.walk();
 
 /*
-* person.walk does not call the walk method in person object it just reference to it
+* personObject.walk does not call the walk method in person object it just reference to it
 * */
-const walk = person.walk;
-console.log("person.walk : " + walk);
+const walk = personObject.walk;
+
 /*
-* When we call an object as stand alone function outside th object "this" refers to global object or window
+* When we call an object as standalone function outside the object "this" refers to global object or window
 * object and if strict mode is enabled it returns undefined
 * */
-walk();
+//  walk();
 
 /*
 * Now we bind function to an object
 * With bind method "this" method will work properly
 * In walkBind the value of this is bind to person object
 * */
-const walkBind = person.walk.bind(person);
+const walkBind = personObject.walk.bind(personObject);
 walkBind();
 
 /*
@@ -120,3 +123,25 @@ const colors = ['red', 'green', 'white'];
 /* Use Template Literal `${}` */
 const items = colors.map(color => `<li>${color}</li>`);
 console.log(items);
+
+/*
+* Spread Operator applies in arrays and objects as below
+* */
+const first = [1, 2, 3, 4];
+const second = [4, 5, 6, 7];
+const combined = [...first, 'a', ...second, 'b'];
+console.log("Combined : " + combined);
+
+const firstObject = {name: 'Maziar'};
+const secondObject = {job: 'Developer'};
+const combinedObject = {...firstObject, city: 'Tehran', ...secondObject}
+console.log(combinedObject);
+
+/*
+* Classes
+* */
+const personClass = new Person("James");
+const teacherClass = new Teacher("Jimmy", "MSc");
+console.log("personClass.name : " + personClass.name + " , " + "teacherClass.name : " + teacherClass.name);
+personClass.walk();
+teacherClass.teach();
